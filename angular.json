@@ -124,5 +124,5 @@
         }
       }
     }},
-  "defaultProject": "oshop"
+  "defaultProject": "dist/oshop"
 }

@@ -22,7 +22,7 @@ export class CartUtils {
           
          let itemMap = new Map<string, ShoppingCartItem>();
             for (let  item of items){
-                itemMap.set(item.productId,item);
+                itemMap.set(item.product.key,item);
             }
             
             return  new ShoppingCart(itemMap);

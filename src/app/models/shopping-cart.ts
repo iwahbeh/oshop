@@ -9,7 +9,7 @@ export class ShoppingCart {
 
   constructor(public itemMap: Map<string, ShoppingCartItem>) {
     itemMap.forEach(prod => {
-      this.items.push(new ShoppingCartItem(prod.productId, prod.quantity));
+      this.items.push(new ShoppingCartItem(prod.product, prod.quantity));
     }
     )
   }
@@ -21,7 +21,7 @@ export class ShoppingCart {
   }
 
   getQuantity(product: Product) {
-    let item = this.items.find(prod => { return prod.productId == product.key });
+    let item = this.items.find(prod => { return prod.product.key == product.key });
     return item ? item.quantity : 0;
   }
 

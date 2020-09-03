@@ -63,7 +63,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.shoppingCart$ = CartUtils.getCartObservable(this.cart$);
     this.shoppingCart$.subscribe(cart => {
       this.shoppingCart = cart;
-      console.log('catching,', this.shoppingCart);
+      console.log('catching,', this.shoppingCart.items);
     });
   }
 
