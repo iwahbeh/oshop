@@ -8,7 +8,7 @@ export class CartUtils {
 
     static getCount(cartItms: (ShoppingCartItem )[] ) {
 
-        console.log('getshopcart', cartItms);
+        console.log('getCount', cartItms);
         this.shoppingCartItemCount = 0;
         for (let x of cartItms) {
             this.shoppingCartItemCount += x.quantity;

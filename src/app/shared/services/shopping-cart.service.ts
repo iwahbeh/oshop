@@ -4,6 +4,8 @@ import { Product } from './../../models/product';
 import { first } from 'rxjs/operators';
 import {ShoppingCart} from './../../models/shopping-cart'
 import { ShoppingCartItem } from './../../models/shoppping-cart-item';
+import { Observable } from 'rxjs';
+import { CartUtils } from '../utils/cart-utils';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +18,7 @@ export class ShoppingCartService {
 
   async getCart() {
     let cartId = await this.getOrCreateCartId();
+    console.log('getCart()',cartId);
     return this.afs.collection('shopping-carts').doc(cartId).collection<ShoppingCartItem>('items').valueChanges();
   }
 
@@ -29,9 +32,15 @@ export class ShoppingCartService {
   }
 
   private create() {
+    console.log('createing cart');
     return this.afs.collection("shopping-carts").add({
-      dateCreated: new Date().getTime()
-    })
+      dateCreated: new Date()
+    }).then(
+      x=> {
+        console.log('created',x.id);
+        return x;
+      }
+    )
   }
 
 
@@ -54,7 +63,20 @@ export class ShoppingCartService {
     return this.afs.doc('shopping-carts/' + cartId + '/items/' + productId);
   }
 
- 
+ async clearCart(){
+    let cart$ = await this.getCart();
+    let shoppingCart$ = CartUtils.getCartObservable(cart$);
+    shoppingCart$.subscribe(
+      cart => {
+        console.log(cart);
+        cart.items.forEach( item => {
+          console.log(item);
+          this.updateItemQuantity(item.product, 0);
+        })
+       
+      }
+    );
+  }
 
   async addToCart(product: Product) {
     this.updateItemQuantity(product,+1)
@@ -65,13 +87,20 @@ export class ShoppingCartService {
     this.updateItemQuantity(product,-1)
   }
 
- private async updateItemQuantity(product: Product, number:number) {
+  async updateItemQuantity(product: Product, number:number) {
+   console.log('updateItemQuantity', product);
     let cartId = await this.getOrCreateCartId();
     let item$ = this.getItem(cartId, product.key);
+    console.log('updateItemQuantity', item$);
     item$.valueChanges().pipe(first()).subscribe(
       (item: { quantity: number }) => {
-        if (item) item$.update({ quantity: item.quantity + number })
-        else item$.set({ product, quantity: 1 })
+       
+        let quantity = (((item) &&  item.quantity ) || 0) + number;
+        console.log('updateItemQuantity', quantity,'-',number);
+        if (quantity === 0  || number ===0)  
+        item$.delete();
+        else
+        item$.set({product,  quantity: quantity })
       }
     )
   }

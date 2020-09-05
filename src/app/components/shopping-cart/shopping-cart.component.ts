@@ -25,9 +25,11 @@ export class ShoppingCartComponent implements OnInit {
     );
 
     this.cartOb$ = CartUtils.getCartObservable(this.cart$);
-    this.cartOb$.subscribe(cart => {
-      console.log('catching,',cart.items);
-    });
+
+
   }
 
+  clearCart() {
+    this.cartService.clearCart();
+  }
 }

@@ -28,6 +28,7 @@ import {UserService} from './shared/services/user.service';
 import {CategoryService} from './shared/services/category.service';
 import {ProductService} from './shared/services/product.service';
 import {ShoppingCartService} from './shared/services/shopping-cart.service';
+import {OrderService} from './shared/services/order.service';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
 import {MatTableModule} from '@angular/material/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -38,6 +39,8 @@ import {MatSortModule} from '@angular/material/sort';
 import { ProductFilterComponent } from './components/product-filter/product-filter.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductQuantityComponent } from './components/product-quantity/product-quantity.component';
+import { ShoppingCartSummaryComponent } from './components/shopping-cart-summary/shopping-cart-summary.component';
+import { ShippingFormComponent } from './components/shipping-form/shipping-form.component';
 
 
 
@@ -57,7 +60,9 @@ import { ProductQuantityComponent } from './components/product-quantity/product-
     ProductFormComponent,
     ProductFilterComponent,
     ProductCardComponent,
-    ProductQuantityComponent
+    ProductQuantityComponent,
+    ShoppingCartSummaryComponent,
+    ShippingFormComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +86,8 @@ import { ProductQuantityComponent } from './components/product-quantity/product-
     AdminAuthGuard,
     CategoryService,
     ProductService,
-    ShoppingCartService
+    ShoppingCartService,
+    OrderService
   ],
   bootstrap: [AppComponent]
 })

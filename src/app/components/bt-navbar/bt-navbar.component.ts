@@ -32,6 +32,7 @@ export class BtNavbarComponent implements OnInit {
   }
 
   async ngOnInit() {
+    console.log('BtNavbarComponent', ' calling get cart');
     this.cart$ = await this.cartService.getCart();
   this.cart$.subscribe(
     items => {this.shoppingCartItemCount = CartUtils.getCount(items)

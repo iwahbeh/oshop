@@ -18,8 +18,8 @@ export class AppComponent {
         let returnUrl = localStorage.getItem('returnUrl');
         if (returnUrl)
           router.navigateByUrl(returnUrl);
-        else
-          router.navigateByUrl("/");
+        // else
+        //   router.navigateByUrl("/");
       }
     });
 
