@@ -15,7 +15,9 @@ import { ShoppingCart } from 'src/app/models/shopping-cart';
 export class ShippingFormComponent implements OnInit, OnDestroy {
   @Input('cart') cart :ShoppingCart;
 
-  shipping ;
+  shipping = {name:'',city: '',addressLine1: '',addressLine2:''}
+
+ 
   Usersubsciption: Subscription;
   userId: string;
   constructor(  private auth: AuthService, private router: Router, private orderService: OrderService) { }
